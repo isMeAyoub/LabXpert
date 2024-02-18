@@ -1,0 +1,41 @@
+server:
+  port: 9090
+  error:
+    include-message: always
+
+spring:
+  mvc:
+    pathmatch:
+      matching-strategy: ANT_PATH_MATCHER
+  application:
+    name: labxpert
+  datasource:
+    url: jdbc:h2:mem:testdb
+    driverClassName: org.h2.Driver
+    username: testdb
+    password: testdb
+  jpa:
+    hibernate:
+      naming:
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+      ddl-auto: update
+    properties:
+      hibernate:
+        ddl-auto: update
+        show-sql: true
+        database-platform: org.hibernate.dialect.H2Dialect
+    show-sql: true
+
+  liquibase:
+    change-log: classpath:db/changelog/changelog-master.xml
+    enabled: true
+
+
+logging:
+  level:
+    root: INFO
+    org.springframework.web: DEBUG
+    com.simplon.labxpert: DEBUG
+    org.hibernate.SQL: ERROR
+  file:
+    name: logs/labxpert.log

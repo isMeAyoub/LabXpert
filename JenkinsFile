@@ -1,0 +1,68 @@
+pipeline {
+    agent any
+    // TODO : TO @ayoub ait si ahmad SHOULD ADD MORE STAGES TO THE PIPELINE
+    tools {
+        // TODO : To @chaimaa WHEN YOU SET UP YOUR JENKINS ADD THIS TO THE TOOLS SECTION
+        maven 'Maven'
+        jdk 'java8'
+        git 'git'
+    }
+
+    stages {
+        stage('Checkout') {
+            steps {
+                git branch: 'test', url: 'https://github.com/ayoub-ait-si-ahmad/labxpert-version2/'
+            }
+        }
+
+        stage('Build') {
+            steps {
+                script {
+                    if (isUnix()) {
+                        sh 'mvn clean install'
+                    } else {
+                        bat 'mvn clean install'
+                    }
+                }
+            }
+        }
+
+        stage('Test') {
+            steps {
+                script {
+                    if (isUnix()) {
+                        sh 'mvn test'
+                    } else {
+                        bat 'mvn test'
+                    }
+                }
+            }
+        }
+
+        stage('Report') {
+            steps {
+                script {
+                    if (isUnix()) {
+                        sh 'mvn clean site'
+                    } else {
+                        bat 'mvn clean site'
+                    }
+                }
+            }
+        }
+    }
+
+    post {
+        success {
+            echo 'Build succeeded!'
+        }
+
+        failure {
+            echo 'Build failed!'
+        }
+
+        unstable {
+            echo 'Build unstable!'
+        }
+    }
+}

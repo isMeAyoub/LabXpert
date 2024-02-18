@@ -1,0 +1,21 @@
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                                       http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.7.xsd">
+
+
+
+    <changeSet id="1" author="chaimaa">
+        <loadData
+                file="classpath:/csv/tests.csv"
+                separator=","
+                tableName="tests">
+            <column name="testid" type="NUMERIC"/>
+            <column name="nametest" type="STRING"/>
+            <column name="minvalue" type="DOUBLE"/>
+            <column name="maxvalue" type="DOUBLE"/>
+            <column name="measurementunits" type="STRING"/>
+        </loadData>
+    </changeSet>
+
+</databaseChangeLog>
